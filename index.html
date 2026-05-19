@@ -751,7 +751,21 @@
         } else {
           document.getElementById("mensagemStatus").innerHTML = "Inscrição realizada <span>com sucesso!</span>";
         }
-      }
+      const telefoneWhatsApp = "5527998197496";
+
+const mensagemWhatsApp =
+  `Olá! Acabei de realizar uma inscrição no Projeto Movimento que Transforma.%0A%0A` +
+  `Protocolo: ${protocolo}%0A` +
+  `Aluno: ${document.getElementById("nomeAluno")?.value || ""}%0A` +
+  `Projeto escolhido: ${modalidade}%0A` +
+  `Responsável: ${getValorPorLabel("Nome Completo do Responsável")}%0A` +
+  `Telefone: ${getValorPorLabel("Telefone de Contato com DDD")}%0A%0A` +
+  `Gostaria de receber acompanhamento sobre o desenvolvimento do aluno.`;
+
+window.open(
+  `https://wa.me/${telefoneWhatsApp}?text=${mensagemWhatsApp}`,
+  "_blank"
+);
 
       document.getElementById("protocoloNumero").innerText = protocolo;
       this.reset();
