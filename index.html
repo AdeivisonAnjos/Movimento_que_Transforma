@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Movimento que Transforma | Inscrição</title>
+  <style>
+    :root {
+      --azul: #004AAD;
+      --laranja: #FF7A00;
+      --branco: #FFFFFF;
+      --cinza: #F4F7FB;
+      --texto: #1F2937;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    body {
+      background: var(--branco);
+      color: var(--texto);
+    }
+    .screen {
+      min-height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #fff 0%, #eef5ff 100%);
+    }
+    .screen.active {
+      display: flex;
+    }
+    .story-wrapper {
+      width: 100%;
+      max-width: 430px;
+      text-align: center;
+    }
+    .story-img {
+      width: 100%;
+      border-radius: 28px;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.18);
+      display: block;
+      margin: 0 auto;
+    }
+    .btn {
+      width: 100%;
+      border: none;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 17px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 18px;
+    }
+    .btn-primary {
+      background: var(--laranja);
+      color: white;
+      box-shadow: 0 8px 20px rgba(255, 122, 0, 0.35);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      background: #e96f00;
+    }
+    .btn-secondary {
+      background: var(--azul);
+      color: white;
+    }
+    .form-container {
+      width: 100%;
+      max-width: 980px;
+      background: white;
+      border-radius: 26px;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+      padding: 30px;
+      border-top: 8px solid var(--laranja);
+    }
+    .form-header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .form-header h1 {
+      color: var(--azul);
+      font-size: 32px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .form-header span {
+      color: var(--laranja);
+    }
+    .form-header p {
+      color: #555;
+      line-height: 1.5;
+    }
+    form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .full {
+      grid-column: 1 / -1;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      color: var(--azul);
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd6e0;
+      border-radius: 12px;
+      font-size: 15px;
+      outline: none;
+      background: white;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--laranja);
+      box-shadow: 0 0 0 3px rgba(255,122,0,0.15);
+    }
+    .section-title {
+      grid-column: 1 / -1;
+      background: var(--azul);
+      color: white;
+      padding: 12px 16px;
+      border-radius: 12px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+    .radio-group {
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 10px 0 16px;
+    }
+    .radio-group label {
+      color: var(--texto);
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0;
+    }
+    .radio-group input {
+      width: auto;
+    }
+    .alerta {
+      background: #fff7ed;
+      border-left: 6px solid var(--laranja);
+      padding: 16px;
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    .termo {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      background: var(--cinza);
+      padding: 16px;
+      border-radius: 14px;
+      line-height: 1.5;
+      font-size: 14px;
+    }
+    .termo input {
+      width: auto;
+      margin-top: 4px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .modalidade-card {
+      background: var(--cinza);
+      border: 2px solid #e5efff;
+      border-radius: 18px;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      color: var(--azul);
+    }
+    .modalidade-card small {
+      display: block;
+      margin-top: 6px;
+      color: #555;
+      font-weight: normal;
+    }
+    #alunoSection,
+    #patrocinadorSection {
+      display: contents;
+    }
+    #alunoSection.hidden,
+    #patrocinadorSection.hidden {
+      display: none !important;
+    }
+    .resumo-final {
+      width: 100%;
+      max-width: 430px;
+      margin: 16px auto 0;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.12);
+      padding: 18px;
+      text-align: center;
+      color: var(--azul);
+      font-weight: bold;
+    }
+    .resumo-final span {
+      color: var(--laranja);
+    }
+    @media (max-width: 700px) {
+      form {
+        grid-template-columns: 1fr;
+      }
+      .form-container {
+        padding: 22px;
+      }
+      .form-header h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <section id="inicio" class="screen active">
+    <div class="story-wrapper">
+      <img class="story-img" src="capa-movimento.png" alt="Movimento que Transforma - Inscrições abertas">
+      <button class="btn btn-primary" onclick="mostrarTela('formulario')">COMEÇAR INSCRIÇÃO</button>
+    </div>
+  </section>
+  <section id="formulario" class="screen">
+    <div class="form-container">
+      <div class="form-header">
+        <h1>Movimento que <span>Transforma</span></h1>
+        <p>Preencha os dados com atenção. As vagas são gratuitas e preenchidas por ordem de inscrição.</p>
+      </div>
+      <form id="inscricaoForm">
+        <div class="section-title">Tipo de Cadastro</div>
+        <div class="full">
+          <label>Deseja realizar inscrição de aluno ou cadastro de patrocinador?</label>
+          <select id="tipoCadastro" required onchange="alternarTipoCadastro()">
+            <option value="aluno" selected>Inscrição de Aluno</option>
+            <option value="patrocinador">Cadastro de Patrocinador</option>
+          </select>
+        </div>
+        <div id="alunoSection" class="full">
+        <div class="section-title">Escolha o Projeto</div>
+        <div class="full">
+          <label>Projeto desejado</label>
+          <select id="modalidade" required onchange="atualizarCamposProjeto()">
+            <option value="">Selecione</option>
+            <option value="Vôlei">Vôlei</option>
+            <option value="Futsal">Futsal</option>
+            <option value="Música">Música</option>
+            <option value="Idioma Inglês">Idioma Inglês</option>
+            <option value="Teatro">Teatro</option>
+            <option value="Reforço Escolar">Reforço Escolar</option>
+          </select>
+        </div>
+        <div id="camposEsporte" class="full modalidade-card hidden">
+          Cadastro esportivo: Futsal ou Vôlei
+          <small>Este cadastro inclui questionário de aptidão física obrigatório.</small>
+        </div>
+        <div id="camposReforco" class="full hidden">
+          <div class="section-title">Dados Específicos do Reforço Escolar</div>
+          <label>Série do Ensino Fundamental</label>
+          <select id="serie">
+            <option value="">Selecione</option>
+            <option>1º ano do Ensino Fundamental</option>
+            <option>2º ano do Ensino Fundamental</option>
+            <option>3º ano do Ensino Fundamental</option>
+            <option>4º ano do Ensino Fundamental</option>
+            <option>5º ano do Ensino Fundamental</option>
+            <option>6º ano do Ensino Fundamental</option>
+            <option>7º ano do Ensino Fundamental</option>
+            <option>8º ano do Ensino Fundamental</option>
+            <option>9º ano do Ensino Fundamental</option>
+          </select>
+          <br><br>
+          <label>Disciplina de maior necessidade</label>
+          <select id="disciplina">
+            <option value="">Selecione</option>
+            <option>Português</option>
+            <option>Matemática</option>
+            <option>Português e Matemática</option>
+            <option>Outra disciplina</option>
+          </select>
+          <br><br>
+          <label>Horário em que a criança estuda</label>
+          <select id="horarioEstudoReforco">
+            <option value="">Selecione</option>
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Noite</option>
+            <option>Integral</option>
+          </select>
+          <br><br>
+          <label>Escola onde o aluno estuda</label>
+          <input type="text" id="escola" placeholder="Nome da escola">
+        </div>
+        <div id="camposIngles" class="full hidden">
+          <div class="section-title">Dados Específicos do Curso de Idioma Inglês</div>
+          <label>Série do Ensino Fundamental</label>
+          <select id="serieIngles">
+            <option value="">Selecione</option>
+            <option>1º ano do Ensino Fundamental</option>
+            <option>2º ano do Ensino Fundamental</option>
+            <option>3º ano do Ensino Fundamental</option>
+            <option>4º ano do Ensino Fundamental</option>
+            <option>5º ano do Ensino Fundamental</option>
+            <option>6º ano do Ensino Fundamental</option>
+            <option>7º ano do Ensino Fundamental</option>
+            <option>8º ano do Ensino Fundamental</option>
+            <option>9º ano do Ensino Fundamental</option>
+          </select>
+          <br><br>
+          <label>Disciplina / curso desejado</label>
+          <input type="text" id="disciplinaIngles" value="Idioma Inglês" readonly>
+          <br><br>
+          <label>Horário em que a criança estuda</label>
+          <select id="horarioEstudoIngles">
+            <option value="">Selecione</option>
+            <option>Manhã</option>
+            <option>Tarde</option>
+            <option>Noite</option>
+            <option>Integral</option>
+          </select>
+          <br><br>
+          <label>Nível de conhecimento em inglês da criança</label>
+          <select id="nivelIngles">
+            <option value="">Selecione</option>
+            <option>Básico</option>
+            <option>Médio</option>
+            <option>Avançado</option>
+          </select>
+        </div>
+        <div id="camposMusica" class="full hidden">
+          <div class="section-title">Dados Específicos da Música</div>
+          <label>O aluno já toca algum instrumento?</label>
+          <select id="instrumento">
+            <option value="">Selecione</option>
+            <option>Não</option>
+            <option>Sim</option>
+          </select>
+          <br><br>
+          <label>Se sim, qual instrumento?</label>
+          <input type="text" id="qualInstrumento" placeholder="Ex.: violão, teclado, bateria">
+        </div>
+        <div id="camposTeatro" class="full hidden">
+          <div class="section-title">Dados Específicos do Teatro</div>
+          <label>O aluno já participou de alguma aula ou apresentação de teatro?</label>
+          <select id="experienciaTeatro">
+            <option value="">Selecione</option>
+            <option>Não</option>
+            <option>Sim</option>
+          </select>
+        </div>
+        <div class="section-title">Dados do Aluno</div>
+        <div class="full">
+          <label>Nome Completo do Participante</label>
+          <input id="nomeAluno" type="text" required />
+        </div>
+        <div>
+          <label>Idade</label>
+          <input type="number" min="7" max="17" required />
+        </div>
+        <div>
+          <label>Sexo</label>
+          <select required>
+            <option value="">Selecione</option>
+            <option>Masculino</option>
+            <option>Feminino</option>
+          </select>
+        </div>
+        <div>
+          <label>Data de Nascimento</label>
+          <input type="date" required />
+        </div>
+        <div>
+          <label>Tamanho de Camisa</label>
+          <select required>
+            <option value="">Selecione</option>
+            <option>8</option>
+            <option>10</option>
+            <option>12</option>
+            <option>14</option>
+            <option>P Adulto</option>
+            <option>M</option>
+            <option>G</option>
+            <option>GG</option>
+            <option>EXG</option>
+          </select>
+        </div>
+        <div class="full">
+          <label>Nome Completo do Responsável</label>
+          <input type="text" required />
+        </div>
+        <div>
+          <label>Telefone de Contato com DDD</label>
+          <input type="tel" placeholder="(27) 99999-9999" required />
+        </div>
+        <div>
+          <label>Telefone para Casos de Emergência</label>
+          <input type="text" placeholder="Nome e número da pessoa" required />
+        </div>
+        <div class="full">
+          <label>Endereço Completo</label>
+          <input type="text" placeholder="Rua, número, bairro e município" required />
+        </div>
+        <div>
+          <label>Bairro</label>
+          <input type="text" required />
+        </div>
+        <div>
+          <label>Município</label>
+          <input type="text" required />
+        </div>
+        <div id="parqArea" class="full">
+          <div class="section-title">Questionário de Aptidão Física - PAR-Q</div>
+          <label>Algum médico já disse que o aluno possui problema de coração?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q1" /> Sim</label>
+            <label><input type="radio" name="q1" /> Não</label>
+          </div>
+          <label>O aluno sente dores no peito quando pratica atividade física?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q2" /> Sim</label>
+            <label><input type="radio" name="q2" /> Não</label>
+          </div>
+          <label>O aluno apresenta tontura ou perda de consciência?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q3" /> Sim</label>
+            <label><input type="radio" name="q3" /> Não</label>
+          </div>
+          <label>O aluno possui problema ósseo ou articular?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q4" /> Sim</label>
+            <label><input type="radio" name="q4" /> Não</label>
+          </div>
+          <label>O aluno toma medicamento para pressão arterial ou problema de coração?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q5" /> Sim</label>
+            <label><input type="radio" name="q5" /> Não</label>
+          </div>
+          <label>Sabe de alguma outra razão pela qual o aluno não deve praticar atividade física?</label>
+          <div class="radio-group">
+            <label><input type="radio" name="q6" /> Sim</label>
+            <label><input type="radio" name="q6" /> Não</label>
+          </div>
+        </div>
+        <div>
+          <label>Possui alguma doença ou deficiência?</label>
+          <select required>
+            <option value="">Selecione</option>
+            <option>Não</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div>
+          <label>Se marcou outro, especifique</label>
+          <input type="text" />
+        </div>
+        <div>
+          <label>Possui alguma alergia?</label>
+          <select required>
+            <option value="">Selecione</option>
+            <option>Não</option>
+            <option>Não sei</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div>
+          <label>Se marcou outro, especifique</label>
+          <input type="text" />
+        </div>
+        </div>
+        <div id="patrocinadorSection" class="full hidden">
+          <div class="section-title">Dados do Patrocinador</div>
+          <div class="full">
+            <label>Nome Completo / Razão Social</label>
+            <input id="nomePatrocinador" type="text" />
+          </div>
+          <div>
+            <label>CNPJ</label>
+            <input id="cnpjPatrocinador" type="text" placeholder="00.000.000/0000-00" />
+          </div>
+          <div>
+            <label>Contato</label>
+            <input id="contatoPatrocinador" type="tel" placeholder="(27) 99999-9999" />
+          </div>
+          <div class="full">
+            <label>Endereço da Empresa</label>
+            <input id="enderecoEmpresa" type="text" placeholder="Rua, número, bairro e município" />
+          </div>
+          <div class="full">
+            <label>Cota de Patrocínio</label>
+            <select id="cotaPatrocinio">
+              <option value="">Selecione</option>
+              <option value="Cota 1 - R$ 750,00 por mês">Cota 1 — R$ 750,00 por mês (patrocina 10 crianças)</option>
+              <option value="Cota 2 - R$ 1.000,00 por mês">Cota 2 — R$ 1.000,00 por mês (patrocina 22 crianças)</option>
+              <option value="Cota 3 - R$ 2.200,00 por mês">Cota 3 — R$ 2.200,00 por mês (patrocina 60 crianças)</option>
+            </select>
+          </div>
+        </div>
+        <div class="full alerta">
+          <strong>Atenção:</strong> As vagas serão preenchidas por ordem de inscrição.
+          A inscrição somente será efetivada após entrega completa dos documentos e assinatura presencial da ficha de matrícula.
+        </div>
+        <div class="full termo">
+          <input type="checkbox" id="termo" required />
+          <label for="termo">
+            Declaro que as informações fornecidas são verdadeiras e estou ciente e concordo com a participação no Projeto Movimento que Transforma, assumindo a responsabilidade pela condição de saúde e aptidão física do participante. Autorizo o uso da imagem e voz do participante em materiais de divulgação do projeto.
+          </label>
+        </div>
+        <div class="full">
+          <button class="btn btn-primary" type="submit">FINALIZAR INSCRIÇÃO</button>
+          <button class="btn btn-secondary" type="button" onclick="mostrarTela('inicio')">VOLTAR</button>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section id="final" class="screen">
+    <div class="story-wrapper">
+      <img class="story-img" src="imagem-final-2.png" alt="Inscrição realizada com sucesso">
+      <div class="resumo-final">
+        <div id="mensagemStatus">Inscrição realizada <span>com sucesso!</span></div>
+        <br>
+        Protocolo: <span id="protocoloNumero"></span>
+      </div>
+      <button class="btn btn-secondary" onclick="mostrarTela('inicio')">
+        VOLTAR AO INÍCIO
+      </button>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = "https://uhlqkzhdaahyatfdhxoo.supabase.co";
+    const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVobHFremhkYWFoeWF0ZmRoeG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjA3OTQsImV4cCI6MjA5NDczNjc5NH0.z2hqwz36kJ_sAtYYkSZXkFZLcnrJGJiL33A8OqUquAw";
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const LIMITE_VAGAS = 200;
+    let totalInscricoes = Number(localStorage.getItem("totalInscricoesMovimento")) || 0;
+
+    function mostrarTela(id) {
+      document.querySelectorAll(".screen").forEach((tela) => tela.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    function atualizarCamposProjeto() {
+      const modalidade = document.getElementById("modalidade").value;
+      const camposEsporte = document.getElementById("camposEsporte");
+      const camposReforco = document.getElementById("camposReforco");
+      const camposIngles = document.getElementById("camposIngles");
+      const camposMusica = document.getElementById("camposMusica");
+      const camposTeatro = document.getElementById("camposTeatro");
+      const parqArea = document.getElementById("parqArea");
+
+      [camposEsporte, camposReforco, camposIngles, camposMusica, camposTeatro].forEach((campo) => {
+        if (campo) campo.classList.add("hidden");
+      });
+
+      if (modalidade === "Futsal" || modalidade === "Vôlei") {
+        camposEsporte?.classList.remove("hidden");
+        parqArea?.classList.remove("hidden");
+      } else if (modalidade === "Reforço Escolar") {
+        camposReforco?.classList.remove("hidden");
+        parqArea?.classList.add("hidden");
+      } else if (modalidade === "Idioma Inglês") {
+        camposIngles?.classList.remove("hidden");
+        parqArea?.classList.add("hidden");
+      } else if (modalidade === "Música") {
+        camposMusica?.classList.remove("hidden");
+        parqArea?.classList.add("hidden");
+      } else if (modalidade === "Teatro") {
+        camposTeatro?.classList.remove("hidden");
+        parqArea?.classList.add("hidden");
+      } else {
+        parqArea?.classList.remove("hidden");
+      }
+    }
+
+    function configurarObrigatoriedade(containerId, ativo) {
+      document.querySelectorAll(`#${containerId} input, #${containerId} select, #${containerId} textarea`).forEach((campo) => {
+        campo.disabled = !ativo;
+        if (campo.dataset.requiredOriginal === "true") {
+          campo.required = ativo;
+        }
+      });
+    }
+
+    function alternarTipoCadastro() {
+      const tipo = document.getElementById("tipoCadastro").value;
+      const alunoSection = document.getElementById("alunoSection");
+      const patrocinadorSection = document.getElementById("patrocinadorSection");
+
+      if (tipo === "patrocinador") {
+        alunoSection.classList.add("hidden");
+        patrocinadorSection.classList.remove("hidden");
+        configurarObrigatoriedade("alunoSection", false);
+        configurarObrigatoriedade("patrocinadorSection", true);
+      } else {
+        alunoSection.classList.remove("hidden");
+        patrocinadorSection.classList.add("hidden");
+        configurarObrigatoriedade("alunoSection", true);
+        configurarObrigatoriedade("patrocinadorSection", false);
+        atualizarCamposProjeto();
+      }
+    }
+
+    function valorECriancasDaCota(cota) {
+      if (cota.includes("750")) return { valor: 750, criancas: 10 };
+      if (cota.includes("1.000")) return { valor: 1000, criancas: 22 };
+      if (cota.includes("2.200")) return { valor: 2200, criancas: 60 };
+      return { valor: 0, criancas: 0 };
+    }
+
+    function getValorPorLabel(labelTexto) {
+      const labels = Array.from(document.querySelectorAll("label"));
+      const label = labels.find((l) => l.textContent.trim().toLowerCase() === labelTexto.toLowerCase());
+      if (!label) return "";
+      const campo = label.parentElement.querySelector("input, select, textarea");
+      return campo ? campo.value : "";
+    }
+
+    document.querySelectorAll("#alunoSection [required], #patrocinadorSection [required]").forEach((campo) => {
+      campo.dataset.requiredOriginal = "true";
+    });
+
+    ["nomePatrocinador", "cnpjPatrocinador", "contatoPatrocinador", "enderecoEmpresa", "cotaPatrocinio"].forEach((id) => {
+      const campo = document.getElementById(id);
+      if (campo) {
+        campo.required = true;
+        campo.dataset.requiredOriginal = "true";
+      }
+    });
+
+    alternarTipoCadastro();
+
+    document.getElementById("inscricaoForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const tipoCadastro = document.getElementById("tipoCadastro").value;
+      const modalidade = document.getElementById("modalidade").value;
+      const termo = document.getElementById("termo");
+
+      if (!termo.checked) {
+        alert("Para finalizar o cadastro, é obrigatório aceitar o termo.");
+        return;
+      }
+
+      totalInscricoes++;
+      localStorage.setItem("totalInscricoesMovimento", totalInscricoes);
+      const protocolo = "MT-" + new Date().getFullYear() + "-" + String(totalInscricoes).padStart(4, "0");
+
+      if (tipoCadastro === "patrocinador") {
+        const camposPatrocinador = ["nomePatrocinador", "cnpjPatrocinador", "contatoPatrocinador", "enderecoEmpresa", "cotaPatrocinio"];
+        const incompleto = camposPatrocinador.some((id) => !document.getElementById(id).value);
+
+        if (incompleto) {
+          alert("Preencha todos os dados do patrocinador e escolha uma cota de patrocínio.");
+          return;
+        }
+
+        const cota = document.getElementById("cotaPatrocinio").value;
+        const dadosCota = valorECriancasDaCota(cota);
+
+        const { error } = await supabaseClient.from("patrocinadores").insert([{
+          nome_completo: document.getElementById("nomePatrocinador").value,
+          cnpj: document.getElementById("cnpjPatrocinador").value,
+          contato: document.getElementById("contatoPatrocinador").value,
+          endereco_empresa: document.getElementById("enderecoEmpresa").value,
+          cota_patrocinio: cota,
+          valor_mensal: dadosCota.valor,
+          criancas_patrocinadas: dadosCota.criancas,
+          status: "pendente"
+        }]);
+
+        if (error) {
+          console.error(error);
+          alert("Erro ao salvar patrocinador no Supabase. Abra o console e me envie o erro.");
+          return;
+        }
+
+        document.getElementById("mensagemStatus").innerHTML = "Cadastro de patrocinador realizado <span>com sucesso!</span>";
+      } else {
+        if (!modalidade) {
+          alert("Selecione o projeto desejado.");
+          return;
+        }
+
+        let serie = null;
+        let disciplina = null;
+        let horarioEstudo = null;
+        let nivelIngles = null;
+
+        if (modalidade === "Reforço Escolar") {
+          serie = document.getElementById("serie").value;
+          disciplina = document.getElementById("disciplina").value;
+          horarioEstudo = document.getElementById("horarioEstudoReforco").value;
+
+          if (!serie || !disciplina || !horarioEstudo) {
+            alert("Para Reforço Escolar, informe a série, a disciplina e o horário em que a criança estuda.");
+            return;
+          }
+        }
+
+        if (modalidade === "Idioma Inglês") {
+          serie = document.getElementById("serieIngles").value;
+          disciplina = "Idioma Inglês";
+          horarioEstudo = document.getElementById("horarioEstudoIngles").value;
+          nivelIngles = document.getElementById("nivelIngles").value;
+
+          if (!serie || !horarioEstudo || !nivelIngles) {
+            alert("Para o Curso de Idioma Inglês, informe a série, o horário em que a criança estuda e o nível de conhecimento em inglês.");
+            return;
+          }
+        }
+
+        const statusInscricao = totalInscricoes > LIMITE_VAGAS ? "Lista de espera" : "pendente";
+
+        const { error } = await supabaseClient.from("inscricoes").insert([{
+          tipo_inscricao: "aluno",
+          nome_aluno: document.getElementById("nomeAluno").value,
+          idade: getValorPorLabel("Idade"),
+          data_nascimento: getValorPorLabel("Data de Nascimento"),
+          responsavel: getValorPorLabel("Nome Completo do Responsável"),
+          telefone: getValorPorLabel("Telefone de Contato com DDD"),
+          endereco: getValorPorLabel("Endereço Completo"),
+          bairro: getValorPorLabel("Bairro"),
+          projeto_escolhido: modalidade,
+          serie: serie,
+          disciplina: disciplina,
+          horario_estudo: horarioEstudo,
+          nivel_ingles: nivelIngles,
+          status: statusInscricao
+        }]);
+
+        if (error) {
+          console.error(error);
+          alert("Erro ao salvar inscrição no Supabase. Abra o console e me envie o erro.");
+          return;
+        }
+
+        if (totalInscricoes > LIMITE_VAGAS) {
+          document.getElementById("mensagemStatus").innerHTML = "Cadastro realizado em <span>lista de espera!</span>";
+        } else {
+          document.getElementById("mensagemStatus").innerHTML = "Inscrição realizada <span>com sucesso!</span>";
+        }
+      }
+
+      document.getElementById("protocoloNumero").innerText = protocolo;
+      this.reset();
+      alternarTipoCadastro();
+      atualizarCamposProjeto();
+      mostrarTela("final");
+    });
+  </script>
+
+</body>
+</html>
