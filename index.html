@@ -677,6 +677,7 @@
 
         const { error } = await supabaseClient.from("patrocinadores").insert([{
           protocolo: protocolo,
+          
           nome_completo: document.getElementById("nomePatrocinador").value,
           cnpj: document.getElementById("cnpjPatrocinador").value,
           contato: document.getElementById("contatoPatrocinador").value,
@@ -717,7 +718,7 @@ window.open(
   `https://wa.me/${telefoneWhatsAppPatrocinador}?text=${encodeURIComponent(mensagemPatrocinador)}`,
   "_blank"
 );
-         }
+      }
         document.getElementById("mensagemStatus").innerHTML = "Cadastro de patrocinador realizado <span>com sucesso!</span>";
       } else {
 
