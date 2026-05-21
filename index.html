@@ -500,9 +500,12 @@
             <label>Cota de Patrocínio</label>
             <select id="cotaPatrocinio">
               <option value="">Selecione</option>
-              <option value="Cota 1 - R$ 750,00 por mês">Cota 1 — R$ 750,00 por mês (patrocina 10 crianças)</option>
-              <option value="Cota 2 - R$ 1.000,00 por mês">Cota 2 — R$ 1.000,00 por mês (patrocina 22 crianças)</option>
-              <option value="Cota 3 - R$ 2.200,00 por mês">Cota 3 — R$ 2.200,00 por mês (patrocina 60 crianças)</option>
+              <option value="Cota 1 - R$ 225,00 por mês (12 meses)">Cota 1 — R$ 225,00 por mês (patrocina 3 crianças)</option>
+              <option value="Cota 2 - R$ 375,00 por mês (12 meses)">Cota 2 — R$ 375,00 por mês (patrocina 5 crianças)</option>
+              <option value="Cota 3 - R$ 750,00 por mês (12 meses)">Cota 3 — R$ 750,00 por mês (patrocina 10 crianças)</option>
+              <option value="Cota 4 - R$ 1.000,00 por mês (12 meses)">Cota 4 — R$ 1.000,00 por mês (patrocina 18 crianças)</option>
+              <option value="Cota 5 - R$ 2.200,00 por mês (12 meses)">Cota 5 — R$ 2.200,00 por mês (patrocina 40 crianças)</option>
+              <option value="Cota 6 - R$ 3.900,00 por mês (12 meses)">Cota 6 — R$ 3.900,00 por mês (patrocina 60 crianças)</option>
             </select>
           </div>
         </div>
@@ -542,7 +545,7 @@
     const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVobHFremhkYWFoeWF0ZmRoeG9vIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkxNjA3OTQsImV4cCI6MjA5NDczNjc5NH0.z2hqwz36kJ_sAtYYkSZXkFZLcnrJGJiL33A8OqUquAw";
     const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-    const LIMITE_VAGAS = 200;
+    const LIMITE_VAGAS = 1000;
     let totalInscricoes = Number(localStorage.getItem("totalInscricoesMovimento")) || 0;
 
     function mostrarTela(id) {
@@ -613,9 +616,12 @@
     }
 
     function valorECriancasDaCota(cota) {
+      if (cota.includes("225")) return { valor: 225, criancas: 03 };
+      if (cota.includes("350")) return { valor: 350, criancas: 05 };
       if (cota.includes("750")) return { valor: 750, criancas: 10 };
-      if (cota.includes("1.000")) return { valor: 1000, criancas: 22 };
-      if (cota.includes("2.200")) return { valor: 2200, criancas: 60 };
+      if (cota.includes("1.000")) return { valor: 1000, criancas: 18 };
+      if (cota.includes("2.200")) return { valor: 2200, criancas: 40 };
+       if (cota.includes("3.900")) return { valor: 3900, criancas: 60 };
       return { valor: 0, criancas: 0 };
     }
 
@@ -688,6 +694,33 @@
 
         document.getElementById("mensagemStatus").innerHTML = "Cadastro de patrocinador realizado <span>com sucesso!</span>";
       } else {
+
+        const telefoneWhatsAppPatrocinador = "5527998197496";
+
+const nomePatrocinador = document.getElementById("nomePatrocinador").value;
+const cnpjPatrocinador = document.getElementById("cnpjPatrocinador").value;
+const contatoPatrocinador = document.getElementById("contatoPatrocinador").value;
+const enderecoEmpresa = document.getElementById("enderecoEmpresa").value;
+const cotaEscolhida = document.getElementById("cotaPatrocinio").value;
+
+const mensagemPatrocinador =
+  `Novo cadastro de patrocinador - Projeto Movimento que Transforma\n\n` +
+  `Protocolo: ${protocolo}\n` +
+  `Patrocinador: ${nomePatrocinador}\n` +
+  `CNPJ: ${cnpjPatrocinador}\n` +
+  `Contato: ${contatoPatrocinador}\n` +
+  `Endereço da empresa: ${enderecoEmpresa}\n` +
+  `Cota escolhida: ${cotaEscolhida}\n\n` +
+  `TERMO DE COMPROMISSO DE PATROCÍNIO\n\n` +
+  `Declaro interesse em apoiar o Projeto Movimento que Transforma por meio da cota de patrocínio escolhida acima, comprometendo-me a realizar o depósito mensal correspondente durante o período de 12 meses.\n\n` +
+  `Estou ciente de que o valor será destinado ao apoio das atividades sociais, esportivas, educacionais e culturais do projeto, beneficiando crianças e adolescentes atendidos pela iniciativa.\n\n` +
+  `Solicito o envio do contrato formal de patrocínio para assinatura e continuidade do processo.`;
+
+window.open(
+  `https://wa.me/${telefoneWhatsAppPatrocinador}?text=${encodeURIComponent(mensagemPatrocinador)}`,
+  "_blank"
+);
+   }
         if (!modalidade) {
           alert("Selecione o projeto desejado.");
           return;
