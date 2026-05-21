@@ -691,11 +691,7 @@
           alert("Erro ao salvar patrocinador no Supabase. Abra o console e me envie o erro.");
           return;
         }
-
-        document.getElementById("mensagemStatus").innerHTML = "Cadastro de patrocinador realizado <span>com sucesso!</span>";
-      } else {
-
-        const telefoneWhatsAppPatrocinador = "5527998197496";
+ const telefoneWhatsAppPatrocinador = "5527998197496";
 
 const nomePatrocinador = document.getElementById("nomePatrocinador").value;
 const cnpjPatrocinador = document.getElementById("cnpjPatrocinador").value;
@@ -720,7 +716,11 @@ window.open(
   `https://wa.me/${telefoneWhatsAppPatrocinador}?text=${encodeURIComponent(mensagemPatrocinador)}`,
   "_blank"
 );
-   }
+         }
+        document.getElementById("mensagemStatus").innerHTML = "Cadastro de patrocinador realizado <span>com sucesso!</span>";
+      } else {
+
+       
         if (!modalidade) {
           alert("Selecione o projeto desejado.");
           return;
