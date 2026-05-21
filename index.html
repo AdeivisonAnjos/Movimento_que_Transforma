@@ -617,7 +617,7 @@
 
     function valorECriancasDaCota(cota) {
       if (cota.includes("225")) return { valor: 225, criancas: 03 };
-      if (cota.includes("350")) return { valor: 350, criancas: 05 };
+      if (cota.includes("375")) return { valor: 375, criancas: 05 };
       if (cota.includes("750")) return { valor: 750, criancas: 10 };
       if (cota.includes("1.000")) return { valor: 1000, criancas: 18 };
       if (cota.includes("2.200")) return { valor: 2200, criancas: 40 };
@@ -676,6 +676,7 @@
         const dadosCota = valorECriancasDaCota(cota);
 
         const { error } = await supabaseClient.from("patrocinadores").insert([{
+          protocolo: protocolo,
           nome_completo: document.getElementById("nomePatrocinador").value,
           cnpj: document.getElementById("cnpjPatrocinador").value,
           contato: document.getElementById("contatoPatrocinador").value,
