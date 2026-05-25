@@ -256,6 +256,7 @@
             <option value="Vôlei">Vôlei</option>
             <option value="Futsal">Futsal</option>
             <option value="Música">Música</option>
+            <option value="Dança">Dança</option>
             <option value="Idioma Inglês">Idioma Inglês</option>
             <option value="Teatro">Teatro</option>
             <option value="Reforço Escolar">Reforço Escolar</option>
@@ -349,6 +350,24 @@
           <br><br>
           <label>Se sim, qual instrumento?</label>
           <input type="text" id="qualInstrumento" placeholder="Ex.: violão, teclado, bateria">
+        </div>
+        <div id="camposDanca" class="full hidden">
+          <div class="section-title">Dados Específicos da Dança</div>
+          <label>O aluno já participou de alguma aula ou apresentação de dança?</label>
+          <select id="experienciaDanca">
+            <option value="">Selecione</option>
+            <option>Não</option>
+            <option>Sim</option>
+          </select>
+          <br><br>
+          <label>Qual estilo de dança tem interesse?</label>
+          <select id="estiloDanca">
+            <option value="">Selecione</option>
+            <option>Dança livre</option>
+            <option>Dança cristã</option>
+            <option>Coreografia em grupo</option>
+            <option>Outro</option>
+          </select>
         </div>
         <div id="camposTeatro" class="full hidden">
           <div class="section-title">Dados Específicos do Teatro</div>
@@ -560,10 +579,11 @@
       const camposReforco = document.getElementById("camposReforco");
       const camposIngles = document.getElementById("camposIngles");
       const camposMusica = document.getElementById("camposMusica");
+      const camposDanca = document.getElementById("camposDanca");
       const camposTeatro = document.getElementById("camposTeatro");
       const parqArea = document.getElementById("parqArea");
 
-      [camposEsporte, camposReforco, camposIngles, camposMusica, camposTeatro].forEach((campo) => {
+      [camposEsporte, camposReforco, camposIngles, camposMusica, camposDanca, camposTeatro].forEach((campo) => {
         if (campo) campo.classList.add("hidden");
       });
 
@@ -579,6 +599,9 @@
       } else if (modalidade === "Música") {
         camposMusica?.classList.remove("hidden");
         parqArea?.classList.add("hidden");
+      } else if (modalidade === "Dança") {
+        camposDanca?.classList.remove("hidden");
+        parqArea?.classList.remove("hidden");
       } else if (modalidade === "Teatro") {
         camposTeatro?.classList.remove("hidden");
         parqArea?.classList.add("hidden");
